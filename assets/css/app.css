@@ -3,3 +3,13 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+/*light_liveview*/
+meter {
+  width: 200px;
+  height: 50px;
+}
+
+img{
+  height: 20px;
+  width: 20px;
+}
