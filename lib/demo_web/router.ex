@@ -1,4 +1,5 @@
 defmodule DemoWeb.Router do
+  alias DemoWeb.SalesDashboardLive
   use DemoWeb, :router
 
   pipeline :browser do
@@ -20,6 +21,7 @@ defmodule DemoWeb.Router do
     get "/", PageController, :home
     live "/light", LightLive
     live "/license", LicenseLive
+    live "/sales", SalesLive
   end
 
   # Other scopes may use custom stacks.
