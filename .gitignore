@@ -41,3 +41,4 @@ mix.lock
 package-lock.json
 /.lsp/
 /.clj-kondo/
+.elixir-tools/

@@ -23,6 +23,7 @@ defmodule DemoWeb.Router do
     live "/license", LicenseLive
     live "/sales", SalesLive
     live "/search", SearchLive
+    live "/autocomplete", AutocompleteLive
   end
 
   # Other scopes may use custom stacks.

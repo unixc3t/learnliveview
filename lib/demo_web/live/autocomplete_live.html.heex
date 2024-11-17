@@ -1,0 +1,62 @@
+<h1>find Store</h1>
+<div id="search">
+
+  <form phx-submit="zip-search">
+      <input type="text" name="zip" placeholder="zip" value={@zip} autofocus autocomplete="off" 
+        readonly={@loading} />
+      <.button>Save</.button>
+    </form>
+
+    <br>
+
+    <div style="margin-top: 400px">
+
+  <form phx-submit="city-search" phx-change="suggest-city">
+      <input type="text" name="city" placeholder="city" value={@city}  autocomplete="off" list="matches"
+        readonly={@loading} />
+      <.button>Save</.button>
+    </form>
+
+
+    <datalist id="matches">
+        <%= for match <- @matches do %>
+          <option value={match}> <%= match %></option>
+        <% end %>
+    </datalist>
+
+    </div>
+
+    <%= if @loading do %>
+      <div class="loader">
+        Loading
+      </div>
+    <% end %>
+    <br>
+  <div class="stores">
+    <ul>
+      <%= for store <- @stores do %>
+        <li>
+          <div class="name">
+            <%= store.name %>
+          </div>
+          <div class="status">
+            <%= if store.open do %>
+              <span class="open">open</span>
+              <% else %>
+                <span class="closed">closed</span>
+                <% end %>
+          </div>
+          <div class="second-line">
+            <div class="street">
+              <%= store.street %>
+            </div>
+            <div class="phone_number">
+              <%= store.phone_number %>
+            </div>
+          </div>
+        </li>
+        <hr/>
+        <% end %>
+    </ul>
+  </div>
+</div>
