@@ -12,6 +12,7 @@ defmodule DemoWeb.SalesLive do
   end
 
 
+  @impl true
   def handle_info(:tick, socket) do
    {:noreply, assign_status(socket)}
   end

@@ -1,0 +1,37 @@
+<h1>Daily Boat Rentals</h1>
+<div id="filter">
+  <form phx-change="filter">
+    <div class="filters">
+      <div class="filter">
+        <select name="type">
+          <%= for {key, value} <- type_options()  do %>
+            <option value={value} selected={@type == value}><%= key %></option>
+          <% end %>
+        </select>
+        <div class="prices">
+          <DemoWeb.FilterLive.price_checkbox name="prices[]"  prices={["$", "$$", "$$$"]} s_prices={@prices}/>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="boats">
+    <%= for boat <- @boats do %>
+      <div class="card">
+        <img src={boat.image} alt="pic">
+        <div class="content">
+          <div class="model">
+            <%= boat.model %>
+          </div>
+          <div class="details">
+            <span class="price">
+              <%= boat.price %>
+            </span>
+            <span class="type">
+              <%= boat.type %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <% end %>
+  </div>
+</div>
