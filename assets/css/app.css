@@ -1,7 +1,6 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
 /* This file is for your main application CSS */
 /*light_liveview*/
 meter {
@@ -12,4 +11,40 @@ meter {
 img{
   height: 20px;
   width: 20px;
+}
+
+#servers{
+  width: 700px; 
+  height:400px;
+  display: flex;
+  border: 1px  solid;
+}
+
+.sidebar{
+  width: 198px;
+  height: 400px;
+  border: 1px  solid;
+}
+.sidebar li {
+  padding: 10px;
+}
+
+
+
+.main{
+  width: 498px;
+  height: 400px;
+  border: 1px  solid;
+}
+
+.active{
+  color: red;
+}
+
+.up{
+  color: green;
+}
+
+.down{
+  color: burlywood;
 }
