@@ -1,7 +1,6 @@
 defmodule DemoWeb.ServerLive do
   use DemoWeb, :live_view
   alias Demo.Servers
-  import Phoenix.LiveView.Router
 
   def mount(_params, _session, socket) do
     servers = Servers.list_servers()
