@@ -1,0 +1,61 @@
+<h1>Food Bank Donations</h1>
+<form phx-change="select-per-page">
+  <select name="per-page">
+  <%= for i <- [5,10,15,20] do %> 
+    <option value={i} selected={i == @options.per_page}><%= i %></option>
+  <% end %>
+  </select>
+</form>
+<div id="donations">
+  <div class="block w-full overflow-x-auto">
+<table class="items-center bg-transparent w-full border-collapse">
+  <thead class="bg-slate-300">
+    <tr>
+      <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle  text-lg  text-left">
+        <.live_component module={DemoWeb.SortComponent} id={"sorting-id"} name="item" page={@options.page} per_page={@options.per_page} sort_by={"item"} sort_order={@options.sort_order}  />
+      </th>
+      <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle text-lg   text-left">
+        <.live_component module={DemoWeb.SortComponent} id={"sorting-2"} name="quantity" page={@options.page} per_page={@options.per_page} sort_by={@options.sort_by} sort_order={@options.sort_order}  />
+      </th>
+      <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle   text-lg  text-left">
+        <.sort_by name="Days Until Expires"  sort_by={"days_until_expires"} sort_order={@options.sort_order} path="sort" page={@options.page} per_page={@options.per_page}  />
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for donation <- @donations do%>
+    <tr>
+      <td>
+        <span class="text-left"><%= donation.id %></span>
+        <%= donation.emoji %>
+        <%= donation.item %>
+      </td>
+      <td class="text-left" >
+        
+        <%= donation.quantity %> lbs
+      </td>
+      <td class="text-center">
+       <span class={expires_class(donation)}>
+          <%= donation.days_until_expires %>
+       </span> 
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="footer">
+  <div class="pagination">
+     <%= if @options.page > 1 do %>
+      <.link_body path="sort" sort_by={@options.sort_by} sort_order={@options.sort_order}  name="previous" page={@options.page-1} per_page={@options.per_page} />
+     <% end %>
+
+     <%= for i <- @options.page-2..@options.page + 2, i > 0 do %>
+       <.link_page path="sort" sort_by={@options.sort_by} sort_order={@options.sort_order}  name={i} page={i} page2={i} per_page={@options.per_page} current_page={@options.page}}  />
+     <% end %>
+
+      <.link_body path="sort" sort_by={@options.sort_by} sort_order={@options.sort_order} name="next" page={@options.page+1} per_page={@options.per_page} />
+  </div>
+</div>
+  </div>
+</div>
