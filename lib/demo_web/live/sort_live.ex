@@ -45,9 +45,6 @@ defmodule DemoWeb.SortLive do
     sort_by = (params["sort_by"] || "id") |> String.to_atom()
     sort_order = (params["sort_order"] || "asc") |> String.to_atom()
 
-    IO.inspect("handle_params")
-    IO.inspect(sort_order)
-    IO.inspect("handle_params")
     paginate_options = %{page: page, per_page: per_page}
     sort_options = %{sort_by: sort_by,  sort_order: sort_order}
 

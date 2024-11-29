@@ -18,7 +18,6 @@ defmodule DemoWeb.FilterLive do
 
  def handle_event("filter", %{"type" => type, "prices" => prices}, socket) do
   params = [type: type, prices: prices]
-  IO.inspect(params, label: "params")
   boats = Boats.list_boats(params)
   socket = assign(socket, params ++ [boats: boats])
   {:noreply, socket}
