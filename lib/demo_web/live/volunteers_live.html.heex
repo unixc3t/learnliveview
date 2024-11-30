@@ -1,0 +1,27 @@
+<div id="checkin" >
+  <.form for={@form} phx-submit="save" phx-change="change"   >
+      <.input type="text" field={@form[:name]} placeholder="name..." autocomplete="off" />
+      <.input type="text" field={@form[:phone]} autocomplete="off" />
+      <.button>checkout</.button>
+  </.form>
+<div id="volunteer-list">
+  <%= for volunteer <- @volunteers do %>
+  <div id="{user-#{volunteer.id}"}>
+    <div class={ if volunteer.check_out, do: "volunteer out", else: "volunteer" }>
+        <div class="name">
+          <%= volunteer.name %>
+        </div>
+        <div class="phone">
+          <img src="images/phone.svg" alt="phone">
+          <%= volunteer.phone %>
+        </div>
+        <div class="status">
+          <button >
+              checkout
+          </button>
+        </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+</div>

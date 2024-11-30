@@ -48,3 +48,33 @@ img{
 .down{
   color: burlywood;
 }
+
+
+
+.volunteer {
+  @apply mt-2 px-6 py-4 w-full text-lg h-20 grid grid-cols-3 items-center border border-gray-300 rounded;
+
+   .name {
+      @apply  text-indigo-600 font-bold overflow-auto;
+      justify-self: start;
+    }
+
+  .phone{
+    @apply flex items-center text-indigo-600 font-bold overflow-auto;
+    justify-self: center;
+  }
+
+  img{
+    @apply flex-shrink-0 mr-2 h-5 w-5;
+  }
+
+  button {
+        @apply bg-indigo-500 text-white font-medium py-2 px-4 rounded outline-none;
+      }
+}
+
+ .volunteer.out {
+    button {
+      @apply bg-slate-600
+    }
+  }
