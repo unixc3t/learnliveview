@@ -1,7 +1,7 @@
 <div id="checkin" >
-  <.form for={@form} phx-submit="save" phx-change="change"   >
-      <.input type="text" field={@form[:name]} placeholder="name..." autocomplete="off" />
-      <.input type="text" field={@form[:phone]} autocomplete="off" />
+  <.form for={@form} phx-submit="save"  phx-change="validate" >
+      <.input type="text"  phx-debounce="blur" field={@form[:name]} placeholder="name..." autocomplete="off" />
+      <.input type="text" phx-debounce="blur" field={@form[:phone]} autocomplete="off" />
       <.button>checkout</.button>
   </.form>
 <div id="volunteer-list">

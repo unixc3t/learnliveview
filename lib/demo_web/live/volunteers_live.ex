@@ -19,11 +19,11 @@ defmodule DemoWeb.VolunteersLive do
    end
 
   #clean the form
-   def handle_event("change", %{"volunteer" => params}, socket) do
-        changeset = Volunteers.change_volunteer(%Volunteer{}, params)
-        socket = assign(socket, form: to_form(changeset))
-        {:noreply, socket}
-  end
+ #  def handle_event("change", %{"volunteer" => params}, socket) do
+ #       changeset = Volunteers.change_volunteer(%Volunteer{}, params)
+ #       socket = assign(socket, form: to_form(changeset))
+ #       {:noreply, socket}
+ # end
 
    def handle_event("save", %{"volunteer" => params}, socket) do
     case Volunteers.create_volunteer(params) do
@@ -40,7 +40,21 @@ defmodule DemoWeb.VolunteersLive do
     end
 
    end
-    
+    # add real-time validate and clear the form when submit the form
+   def handle_event("validate", %{"volunteer" => params}, socket) do
+
+        changeset =
+          %Volunteer{}
+          |> Volunteers.change_volunteer(params)
+          |>Map.put(:action, :insert)
+
+        socket =
+        assign(socket,
+              form: to_form(changeset))
+
+        {:noreply, socket}
+   end
+
 
   def handle_info({:volunteer_created, volunteer}, socket) do
     socket = update(socket, :volunteers, fn volunteers -> [volunteer | volunteers] end)
