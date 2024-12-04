@@ -8,6 +8,13 @@ defmodule Demo.Volunteers do
 
   alias Demo.Volunteers.Volunteer
 
+
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(Demo.PubSub, "volunteers")
+  end
+
+
   @doc """
   Returns the list of volunteers.
 
@@ -37,6 +44,13 @@ defmodule Demo.Volunteers do
   """
   def get_volunteer!(id), do: Repo.get!(Volunteer, id)
 
+
+  def toogle_status_volunteer(%Volunteer{} = volunteer) do
+     update_volunteer(
+        volunteer,
+        %{check_out: !volunteer.check_out}
+      )end
+
   @doc """
   Creates a volunteer.
 
@@ -53,6 +67,7 @@ defmodule Demo.Volunteers do
     %Volunteer{}
     |> Volunteer.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:volunteer_created)
   end
 
   @doc """
@@ -71,7 +86,20 @@ defmodule Demo.Volunteers do
     volunteer
     |> Volunteer.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:volunteer_updated)
   end
+
+  def broadcast({:ok, volunteer}, event) do
+    Phoenix.PubSub.broadcast(
+      Demo.PubSub,
+      "volunteers",
+      {event, volunteer}
+    )
+
+    {:ok, volunteer }
+  end
+
+  def broadcast({:error, _reason} = error, _event), do: error
 
   @doc """
   Deletes a volunteer.

@@ -5,6 +5,9 @@ defmodule DemoWeb.VolunteersLive do
   alias Demo.Volunteers.Volunteer
 
   def mount(_params, _session, socket) do
+
+    if connected?(socket), do: Volunteers.subscribe()
+
     volunteers = Volunteers.list_volunteers()
     changeset = Volunteers.change_volunteer(%Volunteer{})
 
@@ -58,18 +61,16 @@ defmodule DemoWeb.VolunteersLive do
 
   def handle_event("toogle-status", %{"id" => id}, socket) do
     volunteer = Volunteers.get_volunteer!(id)
-
-    {:ok, new_volunteer} =
-      Volunteers.update_volunteer(
-        volunteer,
-        %{check_out: !volunteer.check_out}
-      )
-
-      :timer.sleep(500)
-      {:noreply, stream(socket, :volunteers, [new_volunteer], at: 0)} #at: 0 equal stream_insert
+    {:ok, _new_volunteer} = Volunteers.toogle_status_volunteer(volunteer)
+    {:noreply, socket}
   end
 
   def handle_info({:volunteer_created, new_volunteer}, socket) do
+    #socket = update(socket, :volunteers, fn volunteers -> [volunteer | volunteers] end)
+    {:noreply, stream(socket, :volunteers, [new_volunteer], at: 0 )}
+
+  end
+  def handle_info({:volunteer_updated, new_volunteer}, socket) do
     #socket = update(socket, :volunteers, fn volunteers -> [volunteer | volunteers] end)
     {:noreply, stream(socket, :volunteers, [new_volunteer], at: 0 )}
 
