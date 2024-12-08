@@ -2,7 +2,6 @@ defmodule DemoWeb.InfiniteScrollLive do
   use DemoWeb, :live_view
 
   alias Demo.PizzaOrders
-  alias Demo.PizzaOrders.PizzaOrder
 
 
 
@@ -17,7 +16,7 @@ defmodule DemoWeb.InfiniteScrollLive do
     socket =
       socket
       |> assign(page: 1, per_page: 10)
-      |> stream_configure(:orders, dom_id: &("#{&1.id}"))
+     # |> stream_configure(:orders, dom_id: &("#{&1.id}"))
 
 
 
@@ -36,7 +35,7 @@ defmodule DemoWeb.InfiniteScrollLive do
      # map_order =
      #   orders
      #   |> Enum.map(&%{username: &1.username, id: &1.id, pizaa: &1.pizza} )
-      assign(socket, orders: orders)
+      #assign(socket, orders: orders)
 
       {:noreply, stream(socket, :orders, orders)}
   end
