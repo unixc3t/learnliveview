@@ -14,7 +14,6 @@ defmodule DemoWeb.VolunteersLive do
     socket =
       assign(
         socket,
-        volunteers: volunteers,
         form: to_form(changeset)
       )
 
@@ -72,7 +71,7 @@ defmodule DemoWeb.VolunteersLive do
   end
   def handle_info({:volunteer_updated, new_volunteer}, socket) do
     #socket = update(socket, :volunteers, fn volunteers -> [volunteer | volunteers] end)
-    {:noreply, stream(socket, :volunteers, [new_volunteer], at: 0 )}
+    {:noreply, stream(socket, :volunteers, [new_volunteer], reset: true )}
 
   end
 end

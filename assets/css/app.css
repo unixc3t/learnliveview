@@ -78,3 +78,22 @@ img{
       @apply bg-slate-600
     }
   }
+
+  #infinite-scroll {
+  .order {
+
+
+  }
+
+  #footer {
+    @apply mt-10 mb-20 text-center text-indigo-700 text-lg;
+
+    button {
+      @apply bg-transparent font-semibold py-2 px-4 border border-indigo-500 rounded;
+    }
+
+    button:hover {
+      @apply bg-indigo-500 text-white border-transparent;
+    }
+  }
+}

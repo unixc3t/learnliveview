@@ -1,0 +1,26 @@
+<div id="infinite-scroll">
+  <h1>
+    Pizza Lovers TimeLine
+  </h1>
+  <div id="orders-list" phx-update="stream">
+    <div class="order" :for={{id, order} <- @streams.orders }  id={id} >
+        <div class="id">
+          <%= id %>
+        </div>
+
+        <div>
+          <div class="pizza"> <%= order.pizza %> </div>
+          <div>
+            ordered by <span class="username"> <%= order.username %> </span>
+          </div>
+          <br>
+        </div>
+    </div>
+
+    <div id="footer">
+      <button phx-click="load-more" phx-disable-with="loading...">
+          Load More
+      </button>
+    </div>
+  </div>
+</div>
