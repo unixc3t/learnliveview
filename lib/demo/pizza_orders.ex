@@ -4,7 +4,6 @@ defmodule Demo.PizzaOrders do
   """
 
   import Ecto.Query, warn: false
-  alias Demo.PizzaOrders.PizzaOrders
   alias Demo.Repo
 
   alias Demo.PizzaOrders.PizzaOrder
@@ -25,7 +24,7 @@ defmodule Demo.PizzaOrders do
   def list_pizzaorders(page: page, per_page: per_page) do
     query =
       from p in PizzaOrder,
-      offset: ^((page-1) * per_page),
+      offset: ^((page - 1) * per_page),
       limit: ^per_page,
       order_by: [{:desc, :id}]
 
