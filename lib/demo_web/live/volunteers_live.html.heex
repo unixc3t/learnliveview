@@ -1,26 +1,11 @@
+<.live_component module={DemoWeb.HeaderComponent}  
+id={"header_component"} title="Volunteer Check-In" subtitle={@recent_activity} /> 
 <div id="checkin" >
-  <.form for={@form} phx-submit="save"  phx-change="validate" >
-      <.input type="text"  phx-debounce="blur" field={@form[:name]} placeholder="name..." autocomplete="off" />
-      <.input type="text" phx-debounce="blur" field={@form[:phone]} autocomplete="off" />
-      <.button>checkout</.button>
-  </.form>
+  <.live_component module={DemoWeb.VolunteerFormComponent} id="new"  />
 <div id="volunteer-list" phx-update="stream">
   <!--<div :for={volunteer <- @volunteers } id="{user-#{volunteer.id}"}> -->
   <div :for={{id, volunteer} <- @streams.volunteers }  id={id} >
-    <div class={ if volunteer.check_out, do: "volunteer out", else: "volunteer" }>
-        <div class="name">
-          <%= volunteer.name %>
-        </div>
-        <div class="phone">
-          <img src="images/phone.svg" alt="phone">
-          <%= volunteer.phone %>
-        </div>
-        <div class="status">
-          <button phx-click="toogle-status" phx-value-id={volunteer.id} phx-disable-with="Saving...">
-            <%= if volunteer.check_out, do: "Check In", else: "Check Out" %>
-          </button>
-        </div>
-    </div>
+    <.live_component module={DemoWeb.VolunteerComponent} id={id} volunteer={volunteer} />
   </div>
 </div>
 </div>
