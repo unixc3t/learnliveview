@@ -2,7 +2,6 @@ defmodule DemoWeb.VolunteersLive do
   use DemoWeb, :live_view
 
   alias Demo.Volunteers
-  alias Demo.Volunteers.Volunteer
 
   def mount(_params, _session, socket) do
 
