@@ -1,9 +1,9 @@
-<div>
+<div id="seats">
   Your license is currently for <%= @seats %>.
 
-  <form phx-change="update">
+  <form id="update-seats" phx-change="update">
     <input type="range" name="seats" min="1" max="10" value="{@seats}" />
   </form>
   </div>
 
-  <div class="amount"><%= number_to_currency(@amount) %></div>
+  <div id="amount" class="amount"><%= number_to_currency(@amount) %></div>
