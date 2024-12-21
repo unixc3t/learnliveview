@@ -34,7 +34,7 @@ defmodule DemoWeb.FilterLive do
         <input type="hidden" name={@name} value="">
           <%= for price <- @prices do %>
           <span>
-          <input type="checkbox" id={price} name={@name} value={price} checked={price in @s_prices}  >
+          <input id="filter_checkbox" type="checkbox" id={price} name={@name} value={price} checked={price in @s_prices}  >
           <label for={price}><%= price %></label>
           </span>
           <% end %>
