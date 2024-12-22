@@ -39,7 +39,7 @@ defmodule DemoWeb.ServerLive do
   attr :select_server_name, :any, required: true
   def link_body(assigns) do
     ~H"""
-      <a data-phx-link="patch" data-phx-link-state="push" href={"/#{@path}?#{@key}=#{@value}"} class={if @name == @select_server_name, do: "active"} >
+      <a id="ss" data-phx-link="patch" data-phx-link-state="push" href={"/#{@path}?#{@key}=#{@value}"} class={if @name == @select_server_name, do: "active"} >
       <img src="/images/server.svg" style="display: inline-block;"> <%= @name %>
       </a>
     """
