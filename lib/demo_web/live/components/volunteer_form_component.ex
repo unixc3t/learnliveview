@@ -15,7 +15,7 @@ defmodule DemoWeb.VolunteerFormComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <.form for={@form} phx-submit="save"  phx-change="validate" phx-target={@myself}>
+      <.form id="create-volunteer" for={@form} phx-submit="save"  phx-change="validate" phx-target={@myself}>
         <.input type="text"  phx-debounce="blur" field={@form[:name]} placeholder="name..." autocomplete="off" />
         <.input type="text" phx-debounce="blur" field={@form[:phone]} autocomplete="off" />
       <.button>checkout</.button>

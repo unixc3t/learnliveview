@@ -5,7 +5,7 @@ defmodule DemoWeb.VolunteerComponent do
 
  def render(assigns) do
   ~H"""
-    <div class={ if @volunteer.check_out, do: "volunteer out", else: "volunteer" }>
+    <div id="volunteer-{@volunteer.id}" class={ if @volunteer.check_out, do: "volunteer out", else: "volunteer" }>
         <div class="name">
           <%= @volunteer.name %>
         </div>
@@ -14,7 +14,7 @@ defmodule DemoWeb.VolunteerComponent do
           <%= @volunteer.phone %>
         </div>
         <div class="status">
-          <button phx-click="toogle-status" phx-value-id={@volunteer.id}
+          <button id="toggle-button" phx-click="toogle-status" phx-value-id={@volunteer.id}
           phx-disable-with="Saving..." phx-target={@myself}>
             <%= if @volunteer.check_out, do: "Check In", else: "Check Out" %>
           </button>
