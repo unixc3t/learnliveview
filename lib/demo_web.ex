@@ -54,6 +54,7 @@ defmodule DemoWeb do
       use Phoenix.LiveView,
         layout: {DemoWeb.Layouts, :app}
 
+      import DemoWeb.LiveHelpers
       unquote(html_helpers())
     end
   end

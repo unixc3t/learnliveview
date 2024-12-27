@@ -76,6 +76,8 @@ defmodule DemoWeb.Router do
   scope "/", DemoWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    live "/topsecret", TopSecretLive
+
     live_session :require_authenticated_user,
       on_mount: [{DemoWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
