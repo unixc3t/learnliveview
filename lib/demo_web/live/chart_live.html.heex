@@ -1,0 +1,16 @@
+<div id="charting">
+  <h1>
+    Blood Sugar
+  </h1>
+
+  <div id="mychart" phx-update="ignore">
+  <canvas id="chart-canvas" phx-hook="LineChart" data-chart-data={Jason.encode!(@chart_data)}></canvas>
+  </div>
+</div>
+
+  <div class="text-center">
+    <button class="rounded-lg bg-cyan-400 p-2 text-center text-xs"  phx-click="get-reading">getReading</button>
+    <div>
+      Total readings: <%= @current_reading %>
+    </div>
+  </div>
