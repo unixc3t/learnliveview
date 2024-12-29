@@ -42,3 +42,4 @@ package-lock.json
 /.lsp/
 /.clj-kondo/
 .elixir-tools/
+package-lock.json

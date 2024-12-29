@@ -21,9 +21,20 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-
+import {LineChart} from "../vendor/line-chart"
 
 let Hooks = {}
+
+Hooks.LineChart = {
+  mounted(){
+    const {labels, values} = JSON.parse(this.el.dataset.chartData)
+    this.chart = new LineChart(this.el, labels, values)
+    this.handleEvent("new-point", ({label,value}) => {
+      this.chart.addPoint(label, value)
+    })
+
+  }
+}
 
 Hooks.InfiniteScroll={
   mounted() {
