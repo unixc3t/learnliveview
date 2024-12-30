@@ -12,6 +12,7 @@ defmodule DemoWeb.KeyEventsLive do
     }
   end
 
+  @spec handle_event(<<_::48, _::_*40>>, map(), any()) :: {:noreply, any()}
   def handle_event("set-current", %{"key" => "Enter", "value" => value}, socket) do
     {:noreply, assign(socket, :current, String.to_integer(value))}
   end
