@@ -34,6 +34,7 @@ defmodule DemoWeb.Router do
     live "/infinite", InfiniteScrollLive
     live "/sandbox", SandboxLive
     live "/chart", ChartLive
+    live "/keyevents", KeyEventsLive
   end
 
   # Other scopes may use custom stacks.

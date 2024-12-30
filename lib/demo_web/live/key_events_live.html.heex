@@ -1,0 +1,12 @@
+<h1>Juggling Key Events</h1>
+<div id="key-events" phx-window-keyup="update" >
+    <img style="height:300px; width:300px;"  src={"/images/juggling/#{Enum.at(@images, @current)}"}  alt="pic"  />
+    <div class="status">
+      <%= Enum.at(@images, @current) %>
+      <input type="number", value={@current} phx-keyup="set-current" phx-key="Enter"/>
+      <div>
+        <%= if @is_playing, do: "playing", else: "Paused" %>
+      </div>
+    </div>
+</div>
+<span>press "k", play/paused</span>
