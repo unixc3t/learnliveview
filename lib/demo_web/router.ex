@@ -35,6 +35,7 @@ defmodule DemoWeb.Router do
     live "/sandbox", SandboxLive
     live "/chart", ChartLive
     live "/keyevents", KeyEventsLive
+    live "/desks", DesksLive
   end
 
   # Other scopes may use custom stacks.

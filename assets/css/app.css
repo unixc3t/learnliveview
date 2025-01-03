@@ -97,3 +97,22 @@ img{
     }
   }
 }
+
+#myprogress{
+  width: 100px;
+  height: 25px;
+  border-radius: 25px;
+  background: #eee;
+}
+
+#cancel{
+  line-height: 20px;
+  font-size: 25px;
+  text-align: center;
+}
+
+.drop{
+  height: 200px;
+  width: 500px;
+  border: 1px solid blue;
+}

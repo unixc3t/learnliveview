@@ -1,0 +1,56 @@
+<h1>what's on your desk?</h1>
+
+<div id="desks">
+  <.form id="create_desk" for={@form} phx-submit="save" phx-change="validate" multipart>
+    <.input type="text" field={@form[:name]} placeholder="name" />
+    <div class="hint">
+      Add up to <%= @uploads.photo.max_entries %> photos
+        (max <%= trunc(@uploads.photo.max_file_size / 1_000_000) %> MB each)
+    </div>
+    <div class="drop" phx-drop-target={@uploads.photo.ref}>
+          drag and drop here
+    </div>
+    <div>
+      <.live_file_input upload={@uploads.photo} />
+    </div>
+    <div>
+      <div :for={err <- upload_errors(@uploads.photo)} class="alert alert-danger">
+        <%= upload_error_to_string(err) %>
+      </div>
+
+      <%= for entry <- @uploads.photo.entries do %>
+
+      <span>
+        <.live_img_preview entry={entry} />
+        <progress id="myprogress" value={entry.progress} max="100">
+          <%= entry.progress %>%
+        </progress>
+        <button id="cancel" type="button" phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">
+          X
+        </button>
+
+        <div :for={err <- upload_errors(@uploads.photo, entry)} class="alert alert-danger">
+          <%= upload_error_to_string(err) %>
+        </div>
+      </span>
+
+
+        <% end %>
+    </div>
+    <.button>upload</.button>
+  </.form>
+
+  <div id="desks-list" phx-update="stream">
+  <div :for={{id, desk} <- @streams.desks} id={id}>
+  <%= for {photo_url, index} <- Enum.with_index(desk.photo_urls) do %>
+    <div class="photo" id="#{desk.id}-#{index}">
+      <span class="name">
+      <img src={photo_url} alt="pic"> <%= desk.name %> (<%= index + 1 %>)
+      </span>
+    </div>
+    <% end %>
+</div>
+  </div>
+</div>
+
+
