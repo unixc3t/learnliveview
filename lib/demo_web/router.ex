@@ -28,6 +28,7 @@ defmodule DemoWeb.Router do
     live "/autocomplete", AutocompleteLive
     live "/filter", FilterLive
     live "/servers", ServerLive
+    live "/servers/new", ServerLive, :new
     live "/paginate", PaginateLive
     live "/sort", SortLive
     live "/volunteers", VolunteersLive
@@ -36,6 +37,8 @@ defmodule DemoWeb.Router do
     live "/chart", ChartLive
     live "/keyevents", KeyEventsLive
     live "/desks", DesksLive
+    live "/underwater", UnderwaterLive
+    live "/underwater/show", UnderwaterLive, :show_modal
   end
 
   # Other scopes may use custom stacks.

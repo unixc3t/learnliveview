@@ -1,14 +1,18 @@
 defmodule DemoWeb.ServerLive do
   use DemoWeb, :live_view
   alias Demo.Servers
+  alias Demo.Servers.Server
 
   def mount(_params, _session, socket) do
     servers = Servers.list_servers()
+    changeset = Servers.change_server(%Server{})
 
     socket = assign(
       socket,
       servers: servers,
-      selected_server: hd(servers)
+      selected_server: hd(servers),
+      id: "modal_id",
+      form: to_form(changeset)
     )
 
     {:ok, socket}

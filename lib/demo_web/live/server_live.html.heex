@@ -2,7 +2,14 @@
 <div id="servers">
   <div class="sidebar">
     <nav>
+       <.link patch={~p"/servers/new"}>
+        <button >create server</button>
+        </.link>
       <ul>
+        <.modal :if={@live_action in [:new]} id={@id} show on_cancel={JS.patch(~p"/servers")}>
+        <.live_component  patch={~p"/servers"} form={@form}  id={@id} module={DemoWeb.ServerComponent} action={@live_action} patch={~p"/servers"} />
+
+        </.modal>
       <%= for server <- @servers  do %>
        <li> 
         <.link patch={~p"/servers?id=#{server.id}"} class={if server == @selected_server, do: "active"}><%= server.name %></.link>

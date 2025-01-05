@@ -1,0 +1,10 @@
+<h1>Earth Is Super Watery</h1>
+
+        <button phx-click = {show_modal(@id)}
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Look Underwater
+        </button>
+      <div id="underwater">
+        <.live_component  id={@id} module={DemoWeb.ModalComponent} />
+
+      </div>
