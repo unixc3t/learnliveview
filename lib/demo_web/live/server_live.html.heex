@@ -2,28 +2,27 @@
 <div id="servers">
   <div class="sidebar">
     <nav>
-       <.link patch={~p"/servers/new"}>
-        <button >create server</button>
-        </.link>
-      <ul>
-        <.modal :if={@live_action in [:new]} id={@id} show on_cancel={JS.patch(~p"/servers")}>
-        <.live_component  patch={~p"/servers"} form={@form}  id={@id} module={DemoWeb.ServerComponent} action={@live_action} patch={~p"/servers"} />
+      <.link patch={~p"/servers/new"}>
+        <button>create server</button>
+      </.link>
+      <div>
 
-        </.modal>
-      <%= for server <- @servers  do %>
-       <li> 
-        <.link patch={~p"/servers?id=#{server.id}"} class={if server == @selected_server, do: "active"}><%= server.name %></.link>
-      </li>
-
-      <li>
-        <!--
-        
+      <ul id="server-lists" phx-update="stream">
+        <li :for={{id, server} <- @streams.servers} id={id} >
+            <!--
         <a data-phx-link="patch" data-phx-link-state="push" href={~p"/servers?id=#{server.id}"} > <%= server.name%> </a>
         -->
-        <.link_body path="servers" name={server.name} key="id" value={server.id}  select_server_name={@selected_server.name}/>
-      </li>
-      <% end %>
+          <!--  <.link_body path="servers" name={server.name} key="sid" value={server.id}
+              select_server_name={@selected_server.name} /> -->
+            <.link  patch={~p"/servers?sid=#{server.id}"} class={if server==@selected_server, do: "active" }>
+              <%= server.name %> 
+            </.link> 
+            <.link patch={~p"/servers/#{server}/edit"}>Edit</.link>
+
+           <!-- <.live_component module={DemoWeb.ServerComponent} id={id} server={server} />-->
+          </li>
       </ul>
+      </div>
     </nav>
   </div>
   <div id="selected-server" class="main">
@@ -31,11 +30,25 @@
       <h2>
         <%= @selected_server.name %>
       </h2>
-      status: <span class={@selected_server.status}> <%= @selected_server.status %> </span>
+      status: <span class={@selected_server.status}>
+        <%= @selected_server.status %>
+      </span>
       <span>
         size: <%= @selected_server.size %>
       </span>
 
     </div>
   </div>
+
+
+  <.modal :if={@live_action in [:new, :edit]} id="server-modal" show on_cancel={JS.patch(~p"/servers")}>
+    <.live_component   
+      module={DemoWeb.ServerFormComponent}
+      id={@server.id || :new} 
+      title={@page_title}
+      action={@live_action}
+      server={@server}
+      patch={~p"/servers"}
+    />
+  </.modal>
 </div>

@@ -5,29 +5,44 @@ defmodule DemoWeb.ServerLive do
 
   def mount(_params, _session, socket) do
     servers = Servers.list_servers()
-    changeset = Servers.change_server(%Server{})
 
     socket = assign(
       socket,
-      servers: servers,
-      selected_server: hd(servers),
-      id: "modal_id",
-      form: to_form(changeset)
+      selected_server: hd(servers)
     )
 
-    {:ok, socket}
+    {:ok, stream(socket, :servers, servers)}
   end
 
-  def handle_params(%{"id" => id}, _uri, socket) do
+  def handle_params(%{"sid" => id}, _uri, socket) do
     id = String.to_integer(id)
     server = Servers.get_server!(id)
     socket = assign(socket, selected_server: server)
     {:noreply, socket}
   end
 
-  def handle_params(_, _uri, socket) do
-    {:noreply, socket}
+    def handle_params(params, _url, socket) do
+    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
+
+  defp apply_action(socket, :edit, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Edit Server")
+    |> assign(:server, Servers.get_server!(id))
+  end
+
+  defp apply_action(socket, :new, _params) do
+    socket
+    |> assign(:page_title, "New Server")
+    |> assign(:server, %Server{})
+  end
+
+    defp apply_action(socket, :index, _params) do
+    socket
+    |> assign(:page_title, "Listing Products")
+    |> assign(:product, nil)
+  end
+
 
   def handle_event("show", %{"id" => id}, socket) do
     id = String.to_integer(id)
@@ -36,11 +51,22 @@ defmodule DemoWeb.ServerLive do
     {:noreply, socket}
   end
 
+
+  def handle_info({:saved, server}, socket) do
+    {:noreply, stream_insert(socket, :servers, server, at: 0 )}
+  end
+
+  def handle_info({:update, server}, socket) do
+    IO.inspect("-----update---------")
+    {:noreply, stream_insert(socket, :servers, server, at: 0 )}
+
+   end
   attr :path, :string, required: true
   attr :name, :string, required: true
   attr :key, :string, required: true
   attr :value, :string, required: true
   attr :select_server_name, :any, required: true
+
   def link_body(assigns) do
     ~H"""
       <a id="ss" data-phx-link="patch" data-phx-link-state="push" href={"/#{@path}?#{@key}=#{@value}"} class={if @name == @select_server_name, do: "active"} >

@@ -14,15 +14,15 @@ img{
 }
 
 #servers{
-  width: 700px; 
-  height:400px;
+  width: 900px; 
+  height:1000px;
   display: flex;
   border: 1px  solid;
 }
 
 .sidebar{
-  width: 198px;
-  height: 400px;
+  width: 500px;
+  height: 1000pxpx;
   border: 1px  solid;
 }
 .sidebar li {
@@ -32,8 +32,8 @@ img{
 
 
 .main{
-  width: 498px;
-  height: 400px;
+  width: 650px;
+  height: 1000px;
   border: 1px  solid;
 }
 
